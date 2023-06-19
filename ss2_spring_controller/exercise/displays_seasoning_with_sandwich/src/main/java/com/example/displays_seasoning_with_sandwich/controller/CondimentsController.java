@@ -13,7 +13,7 @@ import java.util.List;
 @Controller
 public class CondimentsController {
     @Autowired
-    ICondimentsService condimentsService;
+    private ICondimentsService condimentsService;
 
     @GetMapping()
     public String showFormCheckBox() {

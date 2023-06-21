@@ -35,10 +35,10 @@ public class ProductController {
         return "redirect:/product";
     }
 
-    @GetMapping("/{id}/detail")
+    @GetMapping("/detail/{id}")
     public String detail(@PathVariable int id, Model model) {
         Product product = productService.findById(id);
-        if (!productService.checkId(id)) {
+        if (productService.checkId(id)) {
             model.addAttribute("message", "product not exist!");
             return "/error";
         }
@@ -48,7 +48,7 @@ public class ProductController {
 
     @PostMapping("/delete")
     public String showDetailProductDelete(@RequestParam("idDelete") Integer id, RedirectAttributes redirectAttributes, Model model) {
-        if (!productService.checkId(id)) {
+        if (productService.checkId(id)) {
             model.addAttribute("message", "product not exist!");
             return "/error";
         }
@@ -58,9 +58,9 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("/edit/{id}")
     public String showFormEdit(@PathVariable int id, Model model) {
-        if (!productService.checkId(id)) {
+        if (productService.checkId(id)) {
             model.addAttribute("message", "product not exist!");
             return "/error";
         }
@@ -70,7 +70,7 @@ public class ProductController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Product product, RedirectAttributes redirectAttributes, Model model) {
-        if (!productService.checkId(product.getId())) {
+        if (productService.checkId(product.getId())) {
             model.addAttribute("message", "product not exist!");
             return "/error";
         }

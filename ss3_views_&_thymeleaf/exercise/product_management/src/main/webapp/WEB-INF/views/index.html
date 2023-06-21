@@ -36,7 +36,7 @@
         <td th:text="${product.description}"></td>
         <td th:text="${product.manufacturer}"></td>
         <td>
-            <a th:href="@{/product/{id}/edit(id=${product.id})}">Edit</a>
+            <a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a>
         </td>
         <td>
             <a type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modelId"
@@ -45,7 +45,7 @@
             </a>
         </td>
         <td>
-            <a th:href="@{/product/{id}/detail(id=${product.id})}">Detail</a>
+            <a th:href="@{/product/detail/{id}(id=${product.id})}">Detail</a>
         </td>
     </tr>
     </tbody>

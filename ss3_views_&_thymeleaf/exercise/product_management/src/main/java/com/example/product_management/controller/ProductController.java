@@ -29,7 +29,7 @@ public class ProductController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        product.setId((int) (Math.random() * 1000));
+        product.setId(productService.findAll().size() + 1);
         productService.add(product);
         redirectAttributes.addFlashAttribute("message", "Add New Product Successfully");
         return "redirect:/product";
@@ -37,12 +37,21 @@ public class ProductController {
 
     @GetMapping("/{id}/detail")
     public String detail(@PathVariable int id, Model model) {
-        model.addAttribute("product", productService.findById(id));
+        Product product = productService.findById(id);
+        if (!productService.checkId(id)) {
+            model.addAttribute("message", "product not exist!");
+            return "/error";
+        }
+        model.addAttribute("product", product);
         return "/detail";
     }
 
     @PostMapping("/delete")
-    public String showDetailProductDelete(@RequestParam("idDelete") Integer id, RedirectAttributes redirectAttributes) {
+    public String showDetailProductDelete(@RequestParam("idDelete") Integer id, RedirectAttributes redirectAttributes, Model model) {
+        if (!productService.checkId(id)) {
+            model.addAttribute("message", "product not exist!");
+            return "/error";
+        }
         productService.remove(id);
         redirectAttributes.addFlashAttribute("message", "Delete product successfully");
         return "redirect:/product";
@@ -51,12 +60,20 @@ public class ProductController {
 
     @GetMapping("/{id}/edit")
     public String showFormEdit(@PathVariable int id, Model model) {
+        if (!productService.checkId(id)) {
+            model.addAttribute("message", "product not exist!");
+            return "/error";
+        }
         model.addAttribute("product", productService.findById(id));
         return "/edit";
     }
 
     @PostMapping("/update")
-    public String update(Product product, RedirectAttributes redirectAttributes) {
+    public String update(@ModelAttribute Product product, RedirectAttributes redirectAttributes, Model model) {
+        if (!productService.checkId(product.getId())) {
+            model.addAttribute("message", "product not exist!");
+            return "/error";
+        }
         productService.update(product.getId(), product);
         redirectAttributes.addFlashAttribute("message", "Update product successfully");
         return "redirect:/product";

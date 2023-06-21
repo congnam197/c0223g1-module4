@@ -4,6 +4,7 @@ import com.example.product_management.model.Product;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public interface IProductService {
     List<Product> findAll();
@@ -17,4 +18,7 @@ public interface IProductService {
     void remove(int id);
 
     List<Product> findByName(String name);
+
+    boolean checkId(int id);
+
 }

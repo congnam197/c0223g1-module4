@@ -55,4 +55,14 @@ public class ProductRepository implements IProductRepository {
         }
         return searchList;
     }
+
+    @Override
+    public boolean checkId(int id) {
+        for (int i = 0; i < findAll().size(); i++) {
+            if (id != findAll().get(i).getId()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

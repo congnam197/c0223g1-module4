@@ -18,4 +18,6 @@ public interface IProductRepository {
     void remove(int id);
 
     List<Product> findByName(String name);
+
+    boolean checkId(int id);
 }

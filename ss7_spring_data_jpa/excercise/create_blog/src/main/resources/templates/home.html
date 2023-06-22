@@ -13,7 +13,7 @@
 <body>
 <div class="container">
     <!--nav-->
-   <nav th:replace="/layout::nav"></nav>
+    <nav th:replace="/layout::nav"></nav>
     <div class="title">
         <img src="https://cdn.pixabay.com/photo/2017/12/02/17/47/wintry-2993370_1280.jpg" alt="img">
     </div>
@@ -26,8 +26,11 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${blog.title}"></h5>
                     <p class="card-text" th:text="${blog.description}"></p>
-                    <a th:href="@{blog/detail/{id}(id=${blog.id})}" class="btn btn-primary">Đọc</a>
+
                     <div class="card-footer">
+                        <a th:href="@{blog/detail/{id}(id=${blog.id})}" class="btn btn-primary">Đọc</a>
+                        <a th:href="@{blog/edit/{id}(id=${blog.id})}" class="btn btn-primary">Sửa</a>
+                        <a th:href="@{blog/delete/{id}(id=${blog.id})}" class="btn btn-primary">Xóa</a>
                         <p class="card-text" th:text="${blog.createTime}">Ngày viết</p>
                     </div>
                 </div>

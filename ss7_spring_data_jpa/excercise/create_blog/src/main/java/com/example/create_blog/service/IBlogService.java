@@ -1,13 +1,13 @@
 package com.example.create_blog.service;
 
 import com.example.create_blog.model.Blog;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface IBlogService {
-    List<Blog> getBlog();
+    Page<Blog> getBlog(Pageable pageable);
 
     void createBlog(Blog blog);
 
@@ -16,4 +16,8 @@ public interface IBlogService {
     void delete(Integer id);
 
     void update(Blog blog);
+
+    Page<Blog> getAllBlogByCategoryID(Integer id, Pageable pageable);
+
+    Page<Blog> search(String name, Pageable pageable);
 }

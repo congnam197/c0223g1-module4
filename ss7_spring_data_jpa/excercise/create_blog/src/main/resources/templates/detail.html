@@ -10,24 +10,22 @@
 <div class="container">
     <!--nav-->
     <nav th:replace="/layout::nav"></nav>
-    <div class="title">
-        <img th:src="${blog.image}" alt="img">
-    </div>
-    <div class="content">
-        <h1 th:text="${blog.title}"></h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${blog.description}"></h5>
-                <p class="card-text" th:text="${blog.content}"></p>
-                <div class="card-footer">
-                    <p class="card-text" th:text="${blog.createTime}">Ngày viết</p>
-                </div>
-            </div>
+    <div class="content just-content-center">
+        <h1 th:text="${blog.category.topic}"></h1>
+        <div class="title">
+            <img th:src="${blog.image}" alt="img">
+        </div>
+        <h5 th:text="${blog.title}"></h5>
+        <p th:text="${blog.content}"></p>
+        <div>
+            <p class="card-text" th:text="${blog.createTime}">Ngày viết</p>
         </div>
     </div>
-    <div class="footer">
-        <footer th:replace="/layout :: footer"></footer>
-    </div>
+</div>
+</div>
+<div class="footer">
+    <footer th:replace="/layout :: footer"></footer>
+</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

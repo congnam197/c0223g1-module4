@@ -9,18 +9,22 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name = "name", unique = true, nullable = false)
+
+    @Column(name = "topics", unique = true, nullable = false, columnDefinition = "LongText")
     private String topic;
     @OneToMany(mappedBy = "category")
     private List<Blog> blogList;
 
+    private boolean flagDelete;
+
     public Category() {
     }
 
-    public Category(Integer id, String topic, List<Blog> blogList) {
+    public Category(Integer id, String topic, List<Blog> blogList, boolean flagDelete) {
         this.id = id;
         this.topic = topic;
         this.blogList = blogList;
+        this.flagDelete = flagDelete;
     }
 
     public Integer getId() {
@@ -45,5 +49,13 @@ public class Category {
 
     public void setBlogList(List<Blog> blogList) {
         this.blogList = blogList;
+    }
+
+    public boolean getFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
     }
 }

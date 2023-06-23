@@ -11,39 +11,34 @@ public class Blog {
     private Integer id;
     private String title;
 
-    @Column(columnDefinition = "long")
+    @Column(columnDefinition = "LongText")
     private String description;
 
-    @Column(columnDefinition = "long")
+    @Column(columnDefinition = "LongText")
     private String content;
 
     private LocalDateTime createTime;
     private String image;
 
+    @Column(columnDefinition = "bit")
+    private boolean flagDelete;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    public Blog(Integer id, String title, String description, String content, LocalDateTime createTime, String image, Category category) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.content = content;
-        this.createTime = createTime;
-        this.image = image;
-        this.category = category;
-    }
-
-    public Blog(Integer id, String title, String description, String content, LocalDateTime createTime, String image) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.content = content;
-        this.createTime = createTime;
-        this.image = image;
-    }
-
     public Blog() {
+    }
+
+    public Blog(Integer id, String title, String description, String content, LocalDateTime createTime, String image, boolean flagDelete, Category category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.createTime = createTime;
+        this.image = image;
+        this.flagDelete = flagDelete;
+        this.category = category;
     }
 
     public Integer getId() {
@@ -100,5 +95,13 @@ public class Blog {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public boolean getFlagDelete() {
+        return flagDelete;
+    }
+
+    public void setFlagDelete(boolean flagDelete) {
+        this.flagDelete = flagDelete;
     }
 }

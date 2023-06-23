@@ -2,7 +2,10 @@ package com.example.create_blog.controller;
 
 import com.example.create_blog.model.Blog;
 import com.example.create_blog.service.IBlogService;
+import com.example.create_blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +18,20 @@ import java.time.LocalDateTime;
 public class BlogController {
     @Autowired
     private IBlogService blogService;
+    @Autowired
+    private ICategoryService categoryService;
 
     @GetMapping("")
-    public String displayBlog(Model model) {
-        model.addAttribute("blogs", blogService.getBlog());
+    public String displayBlog(@PageableDefault(size = 2, sort = "createTime") Pageable pageable, Model model) {
+        model.addAttribute("blogs", blogService.getBlog(pageable));
+        model.addAttribute("categorys", categoryService.getCategory());
         return "home";
     }
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("blog", new Blog());
+        model.addAttribute("categorys", categoryService.getCategory());
         return "create";
     }
 
@@ -42,6 +49,7 @@ public class BlogController {
             model.addAttribute("message", "Không tìm thấy blog nào");
             return "error";
         }
+        model.addAttribute("categorys", categoryService.getCategory());
         model.addAttribute("blog", blogService.getBlogDetail(id));
         return "detail";
     }
@@ -52,6 +60,7 @@ public class BlogController {
             model.addAttribute("message", "Không tìm thấy blog nào");
             return "error";
         }
+        model.addAttribute("categorys", categoryService.getCategory());
         model.addAttribute("blog", blogService.getBlogDetail(id));
         return "edit";
     }
@@ -75,5 +84,22 @@ public class BlogController {
         blogService.delete(id);
         redirectAttributes.addFlashAttribute("message", "Thành Công!Blog đã được xóa");
         return "redirect:/blog";
+    }
+
+    @GetMapping("/category/{id}")
+    public String getListBlog(@PathVariable Integer id, Model model, Pageable pageable) {
+        if (blogService.getBlogDetail(id) == null) {
+            model.addAttribute(model.addAttribute("message", "Không Tìm Thấy Blog nào"));
+            return "error";
+        }
+        model.addAttribute("blogs", blogService.getAllBlogByCategoryID(id, pageable));
+        model.addAttribute("categorys", categoryService.getCategory());
+        return "/home";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("search") String search, Model model, Pageable pageable) {
+        model.addAttribute("blogs", blogService.search(search, pageable));
+        return "/home";
     }
 }

@@ -74,7 +74,7 @@
             box-sizing: border-box;
         }
 
-        textarea {
+        textarea, select {
             width: 100%;
             padding: 12px 0px;
             margin: 8px 0;
@@ -117,7 +117,8 @@
 <!--<nav></nav>-->
 <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/blog" style="color: #335a93;box-shadow: 0 0 2px 0 cornflowerblue;font-weight: bold">
+        <a class="navbar-brand" href="/blog"
+           style="color: #335a93;box-shadow: 0 0 2px 0 cornflowerblue;font-weight: bold">
             BLOG Cuộc Sống</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
                 aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,14 +132,28 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/blog/create">Thêm Blog</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Chủ Đề
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li th:each="category,start:${categorys}"><a class="dropdown-item"
+                                                                     th:href="@{/blog/category/{id}(id=${category.id})}"
+                                                                     th:text="${category.topic}"></a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/category">Quản Lý Chủ Đề</a></li>
+                    </ul>
+                </li>
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="d-flex" method="get" action="/blog/search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
     </div>
 </nav>
+
 <footer th:fragment="footer">
     <div class="clearfix">
         <img src="https://taocover.com/uploads/worigin/2017/06/30/frame-co-4-la5955c0e08ed41_6d9166ec71b9fd312ab5d78951d5e066.jpg"

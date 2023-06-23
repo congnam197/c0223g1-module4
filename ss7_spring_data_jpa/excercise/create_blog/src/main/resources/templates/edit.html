@@ -11,6 +11,13 @@
           method="post" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>
+            <label>Category</label>
+            <select id="category" th:field="*{category}">
+                <option th:each="ct,Start:${categorys}" th:text="${ct.topic}"
+                        th:value="${ct.id}"></option>
+            </select>
+        </div>
+        <div>
             <label>Title</label>
             <input type="text" th:field="*{title}"/>
         </div>

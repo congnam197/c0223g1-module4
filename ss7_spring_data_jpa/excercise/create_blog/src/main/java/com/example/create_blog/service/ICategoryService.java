@@ -13,4 +13,7 @@ public interface ICategoryService {
     void remove(Integer id);
 
     void update(Category category);
+
+    void save(Category category);
+
 }

@@ -51,4 +51,17 @@ public class CategoryController {
         attributes.addFlashAttribute("message", "Chủ đề đã được cập nhật");
         return "redirect:/category";
     }
+
+    @GetMapping("/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("category", new Category());
+        return "create_category";
+    }
+
+    @PostMapping("/create")
+    public String saveCategory(@ModelAttribute("category") Category category, RedirectAttributes attributes) {
+        categoryService.save(category);
+        attributes.addFlashAttribute("message", "Thêm mới một chủ đề");
+        return "redirect:/category";
+    }
 }

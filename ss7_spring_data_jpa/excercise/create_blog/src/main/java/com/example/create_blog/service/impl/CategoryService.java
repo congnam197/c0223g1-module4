@@ -1,6 +1,5 @@
 package com.example.create_blog.service.impl;
 
-import com.example.create_blog.model.Blog;
 import com.example.create_blog.model.Category;
 import com.example.create_blog.repository.ICategoryRepository;
 import com.example.create_blog.service.ICategoryService;
@@ -31,6 +30,12 @@ public class CategoryService implements ICategoryService {
 
     @Override
     public void update(Category category) {
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public void save(Category category) {
+        category.setFlagDelete(false);
         categoryRepository.save(category);
     }
 }

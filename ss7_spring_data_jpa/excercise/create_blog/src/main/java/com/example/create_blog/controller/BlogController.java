@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @RequestMapping("/blog")
 public class BlogController {
     @Autowired
-    IBlogService blogService;
+    private IBlogService blogService;
 
     @GetMapping("")
     public String displayBlog(Model model) {

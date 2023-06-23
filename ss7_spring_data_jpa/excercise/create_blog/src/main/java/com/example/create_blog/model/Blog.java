@@ -20,6 +20,20 @@ public class Blog {
     private LocalDateTime createTime;
     private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    public Blog(Integer id, String title, String description, String content, LocalDateTime createTime, String image, Category category) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.createTime = createTime;
+        this.image = image;
+        this.category = category;
+    }
+
     public Blog(Integer id, String title, String description, String content, LocalDateTime createTime, String image) {
         this.id = id;
         this.title = title;
@@ -78,5 +92,13 @@ public class Blog {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

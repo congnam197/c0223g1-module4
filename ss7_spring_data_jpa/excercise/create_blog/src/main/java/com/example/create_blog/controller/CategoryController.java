@@ -41,7 +41,7 @@ public class CategoryController {
         return "edit_category";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/edit")
     public String update(@ModelAttribute Category category, RedirectAttributes attributes, Model model) {
         if (categoryService.getCategoryById(category.getId()) == null) {
             model.addAttribute("message", "Không tìm thấy chủ đề nào");

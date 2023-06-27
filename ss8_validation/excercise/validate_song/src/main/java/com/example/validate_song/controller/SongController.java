@@ -1,6 +1,6 @@
 package com.example.validate_song.controller;
 
-import com.example.validate_song.SongDto.SongDto;
+import com.example.validate_song.dto.SongDto;
 import com.example.validate_song.model.Song;
 import com.example.validate_song.service.ISongService;
 import org.springframework.beans.BeanUtils;

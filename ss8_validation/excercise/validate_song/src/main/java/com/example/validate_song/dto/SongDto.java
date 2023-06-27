@@ -1,4 +1,4 @@
-package com.example.validate_song.SongDto;
+package com.example.validate_song.dto;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;

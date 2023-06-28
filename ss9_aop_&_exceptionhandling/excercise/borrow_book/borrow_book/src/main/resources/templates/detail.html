@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        body {
+            display: grid;
+            width: 400px;
+            height: 250px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .cusdetail {
+            height: 40px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h3>Detail Book</h3>
+<p>
+    <a th:href="@{/book}">
+        Back to list
+    </a>
+</p>
+<form action="/borrow/" method="post" th:object="${book}">
+<div id="detail">
+    <input type="hidden" th:field="*{id}">
+    <div class="cusdetail">
+        <label>Name:</label>
+        <input th:field="*{name}" readonly>
+    </div>
+    <div class="cusdetail">
+        <label>Author:</label>
+        <input th:field="*{author}" readonly>
+    </div>
+    <div class="cusdetail">
+        <label>Quantity:</label>
+        <input th:field="*{quantity}"readonly>
+    </div>
+</div>
+    <input type="submit" value="Borrow">
+</form>
+</body>
+</html>

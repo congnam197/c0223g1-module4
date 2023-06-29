@@ -37,6 +37,11 @@ public class BorrowBookService implements IBorrowBookService {
     }
 
     @Override
+    public boolean existsBorrowBookByCode(Integer code) {
+        return true;
+    }
+
+    @Override
     public Integer create(Book book) {
         BorrowBook borrowBook = new BorrowBook();
         borrowBook.setFlagDelete(false);

@@ -2,6 +2,7 @@ package com.example.borrow_book.repository;
 
 import com.example.borrow_book.model.Book;
 import com.example.borrow_book.model.BorrowBook;
+import org.aspectj.apache.bcel.classfile.Code;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,7 @@ public interface IBorrowBookRepository extends JpaRepository<BorrowBook, Integer
 
     List<BorrowBook> findBorrowBookByBook(Book book);
 
-    BorrowBook findBorrowBookByCode(int code);
+    BorrowBook findBorrowBookByCode(Integer code);
+    boolean existsBorrowBookByCode(Integer code);
 
 }

@@ -30,7 +30,11 @@ public class BorrowBookController {
     }
 
     @PostMapping("/give-back")
-    public String giveBack(@RequestParam("code") Integer code, RedirectAttributes redirectAttributes) {
+    public String giveBack(@RequestParam("code") Integer code, RedirectAttributes redirectAttributes, Model model) {
+        if (!borrowBookService.existsBorrowBookByCode(code)) {
+            model.addAttribute("message", "The Book not exist!");
+            return "error";
+        }
         BorrowBook borrowBook = borrowBookService.getBookByCode(code);
         bookService.updateQuantityWhenGiveBack(borrowBook.getBook());
         borrowBookService.updateFlagDelete(borrowBook);

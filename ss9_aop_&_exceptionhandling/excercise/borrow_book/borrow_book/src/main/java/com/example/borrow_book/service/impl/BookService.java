@@ -34,4 +34,5 @@ public class BookService implements IBookService {
         book.setQuantity(book.getQuantity() + 1);
         bookRepository.save(book);
     }
+
 }

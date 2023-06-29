@@ -16,4 +16,6 @@ public interface IBorrowBookService {
     BorrowBook getBookByCode(Integer code);
 
     void updateFlagDelete(BorrowBook borrowBook);
+
+    boolean existsBorrowBookByCode(Integer code);
 }

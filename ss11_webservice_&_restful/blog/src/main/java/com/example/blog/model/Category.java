@@ -28,6 +28,10 @@ public class Category {
         this.topic = topic;
     }
 
+    public Category(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }

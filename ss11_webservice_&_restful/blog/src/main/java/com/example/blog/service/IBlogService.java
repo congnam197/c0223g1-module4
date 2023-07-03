@@ -24,5 +24,5 @@ public interface IBlogService {
 
     List<Blog> searchBlog(String title);
 
-    List<Blog> loadMore(@Param("number") Integer number);
+    List<Blog> loadMore(Integer number);
 }

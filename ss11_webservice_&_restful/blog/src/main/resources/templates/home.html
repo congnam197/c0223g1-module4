@@ -28,7 +28,7 @@
                         <a class="nav-link active" aria-current="page" href="/blog">Trang Chủ</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/blog/create">Thêm Blog</a>
+                        <a class="nav-link" id="btn-add-blog" onclick="createBlog()">Thêm Blog</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -66,10 +66,28 @@
         <div id="blogs"></div>
     </div>
     <div style="margin:10px 0">
-        <button onclick="loadMorePage()">Xem Thêm</button>
+        <button id="load-more" onclick="loadMorePage()">Xem Thêm</button>
     </div>
 </div>
 <script>
+    function getCategory() {
+        $.ajax({
+            url: "http://localhost:8080/category",
+            type: "GET",
+            success: function (data) {
+                let listString = "";
+                for (let category of data) {
+                    listString += `<option value="${category.id}">${category.topic}</option>`
+
+                }
+                $("#dropdown-menu").html(listString);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+    }
+
     function displayBlogs(url, error) {
         $.ajax({
             url: url,
@@ -78,15 +96,18 @@
                 console.log(JSON.stringify(data));
                 let blogStr = '';
                 for (let blog of data) {
+                    if (data.length===0){
+                        $('#load-more').hidden
+                    }
                     blogStr += ` <div>
             <div class="card">
-                <h5 class="card-header">${blog.category.topic}</h5>
+                <h5 class="card-header">${blog.content}</h5>
                 <div class="card-body">
                     <h5 class="card-title" >${blog.title}</h5>
                     <p class="card-text">${blog.description}</p>
 
                     <div class="card-footer">
-                        <p class="card-text">Ngày viết: ${blog.createTime}</p>
+                        <p class="card-text">${blog.createTime}</p>
                     </div>
                 </div>
             </div>
@@ -110,7 +131,7 @@
         }
     }
 
-    let page = 10;
+    let page = 0;
 
     function loadMorePage() {
         page += 10;
@@ -120,10 +141,14 @@
     function getBlogs() {
         displayBlogs("http://localhost:8080/blogs", "no data or error occurred");
     }
+    function createBlog(){
+        window.location.href="create.html";
+    }
 
     $(document).ready(function () {
+        getCategory();
         loadMorePage();
-    })
+    });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
         integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"

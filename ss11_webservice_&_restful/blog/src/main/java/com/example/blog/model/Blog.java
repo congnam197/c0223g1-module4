@@ -23,7 +23,7 @@ public class Blog {
     @Column(columnDefinition = "bit")
     private boolean flagDelete;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 

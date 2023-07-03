@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<form>
+    <h3>Add Blog</h3>
+        <form>
+            <input type="hidden"/>
+            <div>
+                <label>Category</label>
+                <select id="dropdown-menu">
+
+                </select>
+            </div>
+            <div>
+                <label>Title</label>
+                <input type="text" id="title"/>
+            </div>
+            <div>
+                <label>Description</label>
+                <textarea id="description"></textarea>
+            </div>
+            <div>
+                <label>Content</label>
+                <textarea id="content"></textarea>
+            </div>
+            <div>
+                <label>Image</label>
+                <input type="text" id="image">
+            </div>
+            <div>
+                <label>Date auto update</label>
+                <input type="hidden"/>
+            </div>
+            <button type="button" onclick="onCreateUser()">Submit</button>
+        </form>
+    <script>
+        function getCategory() {
+            $.ajax({
+                url: "http://localhost:8080/category",
+                type: "GET",
+                success: function (data) {
+                    let listString = "";
+                    for (let category of data) {
+                        listString += `<option value="${category.id}">${category.topic}</option>`
+
+                    }
+                    $("#dropdown-menu").html(listString);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+        $(document).ready(function () {
+            getCategory();
+        })
+        function onCreateUser() {
+            const title = $("#title").val();
+            const description = $("#description").val();
+            const content = $("#content").val();
+            const image = $("#image").val();
+            const categoryID = $("#dropdown-menu").val();
+            const blog = {
+                title: title, description: description, content: content, image: image, category: {id:+categoryID}
+            }
+            $.ajax({
+                url: "http://localhost:8080/blogs",
+                type: "POST",
+                data: JSON.stringify(blog),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                success: function () {
+                    window.location.href = "home.html";
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
+    </script>
+</form>
+</body>
+</html>

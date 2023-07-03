@@ -1,6 +1,7 @@
 package com.example.blog.service;
 
 import com.example.blog.model.Blog;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface IBlogService {
     void update(Blog blog);
 
     boolean checkId(Integer id);
+
+    List<Blog> searchBlog(String title);
+
+    List<Blog> loadMore(@Param("number") Integer number);
 }

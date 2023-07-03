@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,5 +53,15 @@ public class BlogService implements IBlogService {
     @Override
     public boolean checkId(Integer id) {
         return blogRepository.existsBlogById(id);
+    }
+
+    @Override
+    public List<Blog> searchBlog(String title) {
+        return blogRepository.findAllByTitleContainsAndFlagDeleteIsFalse(title);
+    }
+
+    @Override
+    public List<Blog> loadMore(Integer number) {
+        return blogRepository.loadMore(number);
     }
 }

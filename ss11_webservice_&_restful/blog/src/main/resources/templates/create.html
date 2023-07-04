@@ -46,7 +46,7 @@
                 success: function (data) {
                     let listString = "";
                     for (let category of data) {
-                        listString += `<option value="${category.id}">${category.topic}</option>`
+                        listString += `<option value="${category.id}">${category.topic}</option>`;
 
                     }
                     $("#dropdown-menu").html(listString);
